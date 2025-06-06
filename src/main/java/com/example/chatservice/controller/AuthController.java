@@ -1,5 +1,6 @@
 package com.example.chatservice.controller;
 
+import com.example.chatservice.model.CommonResponse;
 import com.example.chatservice.model.LoginRequest;
 import com.example.chatservice.model.LoginResponse;
 import com.example.chatservice.model.User;
@@ -10,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1/public")
 public class AuthController {
 
     private final UserServiceImpl userService;
@@ -21,13 +22,13 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
+    public CommonResponse<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
         LoginResponse response = userService.login(loginRequest);
         
-        if (response.getToken() != null) {
-            return ResponseEntity.ok(response);
+        if (response.getAccessToken() != null) {
+            return CommonResponse.ok(response);
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+            return null;
         }
     }
 

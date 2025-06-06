@@ -1,7 +1,8 @@
 package com.example.chatservice.model;
 
 public class LoginResponse {
-    private String token;
+    private String accessToken;
+    private String refreshToken;
     private String username;
     private String message;
 
@@ -10,18 +11,19 @@ public class LoginResponse {
     }
 
     public LoginResponse(String token, String username, String message) {
-        this.token = token;
+        this.accessToken = token;
+        this.refreshToken = token;
         this.username = username;
         this.message = message;
     }
 
     // Getters and Setters
-    public String getToken() {
-        return token;
+    public String getAccessToken() {
+        return accessToken;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 
     public String getUsername() {
@@ -38,5 +40,13 @@ public class LoginResponse {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getRefreshToken() {
+        return refreshToken;
+    }
+
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
     }
 }

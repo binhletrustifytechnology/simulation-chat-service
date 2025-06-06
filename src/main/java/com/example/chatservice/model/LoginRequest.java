@@ -3,14 +3,16 @@ package com.example.chatservice.model;
 public class LoginRequest {
     private String username;
     private String password;
+    private String tenantIdentifier;
 
     // Constructors
     public LoginRequest() {
     }
 
-    public LoginRequest(String username, String password) {
+    public LoginRequest(String username, String password, String tenantIdentifier) {
         this.username = username;
         this.password = password;
+        this.tenantIdentifier = tenantIdentifier;
     }
 
     // Getters and Setters
@@ -28,5 +30,13 @@ public class LoginRequest {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getTenantIdentifier() {
+        return tenantIdentifier;
+    }
+
+    public void setTenantIdentifier(String tenantIdentifier) {
+        this.tenantIdentifier = tenantIdentifier;
     }
 }
