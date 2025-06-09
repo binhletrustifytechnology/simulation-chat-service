@@ -1,6 +1,7 @@
 package com.example.chatservice.controller;
 
 import com.example.chatservice.model.ChatUserConfig;
+import com.example.chatservice.model.CommonResponse;
 import com.example.chatservice.model.User;
 import com.example.chatservice.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class UserController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity<User> getCurrentUser(
+    public CommonResponse<User> getCurrentUser(
             @RequestHeader("Authorization") String authHeader,
             @RequestHeader(value = "X-Tenant-Id", required = false) String tenantId) {
         // Extract token from Authorization header
@@ -46,10 +47,10 @@ public class UserController {
                                 .build()
                 );
                 user.setPrivileges(Collections.emptyList());
-                return ResponseEntity.ok(user);
+                return CommonResponse.ok(user);
             }
         }
 
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        return null;
     }
 }
