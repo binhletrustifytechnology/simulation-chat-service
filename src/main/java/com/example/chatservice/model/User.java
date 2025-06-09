@@ -1,11 +1,16 @@
 package com.example.chatservice.model;
 
+import java.util.List;
+
 public class User {
     private Long id;
     private String username;
     private String password;
     private String email;
     private String fullName;
+    private String roleName;
+    private ChatUserConfig chatUserConfig;
+    private List<Privilege> privileges;
 
     // Constructors
     public User() {
@@ -58,5 +63,29 @@ public class User {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
+    public ChatUserConfig getChatUserConfig() {
+        return chatUserConfig;
+    }
+
+    public void setChatUserConfig(ChatUserConfig chatUserConfig) {
+        this.chatUserConfig = chatUserConfig;
+    }
+
+    public List<Privilege> getPrivileges() {
+        return privileges;
+    }
+
+    public void setPrivileges(List<Privilege> privileges) {
+        this.privileges = privileges;
     }
 }

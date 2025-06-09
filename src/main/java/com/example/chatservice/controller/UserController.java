@@ -1,5 +1,6 @@
 package com.example.chatservice.controller;
 
+import com.example.chatservice.model.ChatUserConfig;
 import com.example.chatservice.model.User;
 import com.example.chatservice.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Arrays;
+import java.util.Collections;
 
 @RestController
 @RequestMapping("/api/v1/front-office/users")
@@ -35,9 +39,9 @@ public class UserController {
             String username = userService.getUsernameFromToken(token);
             if (username != null) {
                 User user = userService.getCurrentUser(username);
-                if (user != null) {
-                    return ResponseEntity.ok(user);
-                }
+                user.setChatUserConfig(ChatUserConfig.builder().chatUserId("test").chatUserToken("test").build());
+                user.setPrivileges(Collections.emptyList());
+                return ResponseEntity.ok(user);
             }
         }
 
