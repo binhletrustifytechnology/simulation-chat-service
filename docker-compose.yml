@@ -60,7 +60,7 @@ services:
     expose:
       - ${PORT:-3000}
     ports:
-      - "${BIND_IP:-0.0.0.0}:${HOST_PORT:-3000}:${PORT:-3000}"
+      - "${HOST_PORT:-4000}:${PORT:-3000}"
 
 
 networks:
