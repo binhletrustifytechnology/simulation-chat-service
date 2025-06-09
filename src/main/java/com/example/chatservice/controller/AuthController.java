@@ -3,12 +3,13 @@ package com.example.chatservice.controller;
 import com.example.chatservice.model.CommonResponse;
 import com.example.chatservice.model.LoginRequest;
 import com.example.chatservice.model.LoginResponse;
-import com.example.chatservice.model.User;
 import com.example.chatservice.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/public")
@@ -35,28 +36,5 @@ public class AuthController {
         } else {
             return null;
         }
-    }
-
-    @GetMapping("/me")
-    public ResponseEntity<User> getCurrentUser(
-            @RequestHeader("Authorization") String authHeader,
-            @RequestHeader(value = "X-Tenant-Id", required = false) String tenantId) {
-        // Extract token from Authorization header
-        String token = null;
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            token = authHeader.substring(7);
-        }
-
-        if (token != null) {
-            String username = userService.getUsernameFromToken(token);
-            if (username != null) {
-                User user = userService.getCurrentUser(username);
-                if (user != null) {
-                    return ResponseEntity.ok(user);
-                }
-            }
-        }
-
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 }
