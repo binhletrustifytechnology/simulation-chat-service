@@ -22,9 +22,14 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public CommonResponse<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
+    public CommonResponse<LoginResponse> login(@RequestBody LoginRequest loginRequest, @RequestHeader(value = "X-Tenant-Id", required = false) String tenantId) {
+        // If X-Tenant-Id header is provided, use it to override the tenantIdentifier in the request
+        if (tenantId != null && !tenantId.isEmpty()) {
+            loginRequest.setTenantIdentifier(tenantId);
+        }
+
         LoginResponse response = userService.login(loginRequest);
-        
+
         if (response.getAccessToken() != null) {
             return CommonResponse.ok(response);
         } else {
@@ -33,13 +38,15 @@ public class AuthController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity<User> getCurrentUser(@RequestHeader("Authorization") String authHeader) {
+    public ResponseEntity<User> getCurrentUser(
+            @RequestHeader("Authorization") String authHeader,
+            @RequestHeader(value = "X-Tenant-Id", required = false) String tenantId) {
         // Extract token from Authorization header
         String token = null;
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             token = authHeader.substring(7);
         }
-        
+
         if (token != null) {
             String username = userService.getUsernameFromToken(token);
             if (username != null) {
@@ -49,7 +56,7 @@ public class AuthController {
                 }
             }
         }
-        
+
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 }
