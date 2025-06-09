@@ -39,7 +39,12 @@ public class UserController {
             String username = userService.getUsernameFromToken(token);
             if (username != null) {
                 User user = userService.getCurrentUser(username);
-                user.setChatUserConfig(ChatUserConfig.builder().chatUserId("test").chatUserToken("test").build());
+                user.setChatUserConfig(
+                        ChatUserConfig.builder()
+                                .chatUserId("fjsrTPcaDmwkdF65X")
+                                .chatUserToken("gekiVflo-VogrcGU_sYtaGciHCOPTc0ckJGhSBH-svh")
+                                .build()
+                );
                 user.setPrivileges(Collections.emptyList());
                 return ResponseEntity.ok(user);
             }
